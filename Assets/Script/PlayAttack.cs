@@ -5,58 +5,63 @@ using System.Collections;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerAttack : MonoBehaviour
 {
+    [Header("Jump Kick")]
+    public float jumpKickSpeed = 8f;
+
+    [Header("References")]
+    public PlayerMovement playerMovement;
+    public PlayerAnimationController playerAnimation;
+    public GameManager gameManager;
+    public AttackHitBox kickHitBox;
+
+    private Rigidbody rb;
     private bool isPunching = false;
     private bool isKicking = false;
 
-    private Rigidbody rb;
-    private Animator animator;
-    private PlayerMovement playerMovement;
-    private GameManager gameManager;
-
-    // PlayerMovement側から「キック中は移動しない」を判定するために公開
+    public bool IsPunching => isPunching;
     public bool IsKicking => isKicking;
+    public bool IsAttacking => isPunching || isKicking;
+
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+
+        if (playerMovement == null)
+            playerMovement = GetComponent<PlayerMovement>();
+
+        if (playerAnimation == null)
+            playerAnimation = GetComponent<PlayerAnimationController>();
+
+        if (kickHitBox == null)
+            kickHitBox = GetComponentInChildren<AttackHitBox>(true);
+    }
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        animator = GetComponent<Animator>();
-        playerMovement = GetComponent<PlayerMovement>();
-        gameManager = FindAnyObjectByType<GameManager>();
+        if (gameManager == null)
+            gameManager = FindAnyObjectByType<GameManager>();
+
+        if (kickHitBox != null)
+            kickHitBox.DisableHitBox();
     }
 
     void Update()
     {
-        if (Keyboard.current == null)
-        {
-            return;
-        }
+        if (Keyboard.current == null) return;
 
-        // ゲームクリア or ゲームオーバー時はリターン
         if (gameManager != null &&
-        (gameManager.IsStageClear || gameManager.IsGameOver))
-        {
+            (gameManager.IsStageClear || gameManager.IsGameOver))
             return;
-        }
 
-        // パンチを出す
         if (Keyboard.current.pKey.wasPressedThisFrame && !isPunching)
-        {
             StartCoroutine(PunchSequence());
-        }
 
-        // キックを出す
         if (Keyboard.current.kKey.wasPressedThisFrame && !isKicking)
         {
             if (playerMovement != null && playerMovement.IsGrounded)
-            {
-                // 地上時はキック
                 StartCoroutine(KickSequence());
-            }
             else
-            {
-                // ジャンプ時はジャンプキック
                 StartCoroutine(JumpKickSequence());
-            }
         }
     }
 
@@ -64,25 +69,21 @@ public class PlayerAttack : MonoBehaviour
     {
         isPunching = true;
 
-        animator.speed = 1f;
+        if (playerAnimation != null)
+            playerAnimation.PlayPunch();
 
-        // 40%地点からパンチ開始
-        animator.Play("Punch", 0, 0.4f);
-
-        // パンチ＋腕を戻すまで
         yield return new WaitForSeconds(1.0f);
 
-        // その構えで止める
-        animator.speed = 0f;
+        if (playerAnimation != null)
+            playerAnimation.PauseAnimation();
 
-        // 0.3秒ほど構えを維持
         yield return new WaitForSecondsRealtime(0.3f);
 
-        // 再びAnimatorを動かす
-        animator.speed = 1f;
-
-        // Idleへ滑らかに戻す
-        animator.CrossFade("Idle", 0.15f);
+        if (playerAnimation != null)
+        {
+            playerAnimation.ResumeAnimation();
+            playerAnimation.PlayIdle();
+        }
 
         isPunching = false;
     }
@@ -91,12 +92,23 @@ public class PlayerAttack : MonoBehaviour
     {
         isKicking = true;
 
-        animator.speed = 1f;
-        animator.Play("Kick", 0, 0f);
+        if (playerAnimation != null)
+            playerAnimation.PlayKick();
 
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.60f);
 
-        animator.CrossFade("Idle", 0.15f);
+        if (kickHitBox != null)
+            kickHitBox.EnableHitBox();
+
+        yield return new WaitForSeconds(0.25f);
+
+        if (kickHitBox != null)
+            kickHitBox.DisableHitBox();
+
+        yield return new WaitForSeconds(0.55f);
+
+        if (playerAnimation != null)
+            playerAnimation.PlayIdle();
 
         isKicking = false;
     }
@@ -105,32 +117,35 @@ public class PlayerAttack : MonoBehaviour
     {
         isKicking = true;
 
-        animator.speed = 1f;
-        animator.Play("JumpKick", 0, 0f);
+        if (playerAnimation != null)
+            playerAnimation.PlayJumpKick();
 
-        // 現在向いている方向を取得
         Vector3 kickDirection = transform.forward;
+        kickDirection.y = 0f;
 
-        // 向いている方向へライダーキック
-        float kickSpeed = 8f;
+        if (kickDirection.sqrMagnitude > 0f)
+            kickDirection.Normalize();
 
         rb.linearVelocity = new Vector3(
-            kickDirection.x * kickSpeed,
+            kickDirection.x * jumpKickSpeed,
             rb.linearVelocity.y,
             rb.linearVelocity.z
         );
 
-        // 着地するまで待つ
+        if (kickHitBox != null)
+            kickHitBox.EnableHitBox();
+
         if (playerMovement != null)
         {
             while (!playerMovement.IsGrounded)
-            {
                 yield return null;
-            }
         }
 
-        // 着地後Idleへ
-        animator.CrossFade("Idle", 0.15f);
+        if (kickHitBox != null)
+            kickHitBox.DisableHitBox();
+
+        if (playerAnimation != null)
+            playerAnimation.PlayIdle();
 
         isKicking = false;
     }
