@@ -243,7 +243,7 @@ GameObject:
   - component: {fileID: 156767707}
   - component: {fileID: 156767708}
   m_Layer: 0
-  m_Name: JumpKickHitBox
+  m_Name: KickHitBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -257,12 +257,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 156767705}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.9538817, y: 0.0017808254, z: 0.20510522, w: 0.21917678}
-  m_LocalPosition: {x: 0.0065239305, y: 0.17140724, z: 0.16860676}
+  m_LocalRotation: {x: -0, y: -0, z: 0.000000023707601, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 836280520}
+  m_Father: {fileID: 1276955359}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &156767707
 BoxCollider:
@@ -283,8 +283,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.5636668, y: 0.6968305, z: 0.61358386}
-  m_Center: {x: 0.04442677, y: 0.35190415, z: 0.11775547}
+  m_Size: {x: 0.5636668, y: 0.60343254, z: 0.6470153}
+  m_Center: {x: 0.04442677, y: 0.39860314, z: 0.24581032}
 --- !u!114 &156767708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -369,7 +369,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   hitReactionState: HitReaction
   knockDownState: Sentinel_Knock_Down
-  destroyDelay: 1.5
+  destroyDelay: 3
 --- !u!95 &179273184
 Animator:
   serializedVersion: 7
@@ -886,11 +886,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &836280520 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8721056732114653340, guid: 08055a44d04244aed9aa31817e2a3291, type: 3}
-  m_PrefabInstance: {fileID: 1383553857}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &845014261
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1686,7 +1681,8 @@ MonoBehaviour:
   playerMovement: {fileID: 0}
   playerAnimation: {fileID: 0}
   gameManager: {fileID: 0}
-  kickHitBox: {fileID: 0}
+  kickHitBox: {fileID: 156767708}
+  punchHitBox: {fileID: 1497257703}
 --- !u!1 &1295051527 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: a5501a8b3f6b644f49b32d40bdb5d27e, type: 3}
@@ -1714,73 +1710,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 5461320835613783329, guid: a5501a8b3f6b644f49b32d40bdb5d27e, type: 3}
---- !u!1 &1330528961
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1330528962}
-  - component: {fileID: 1330528964}
-  - component: {fileID: 1330528963}
-  m_Layer: 0
-  m_Name: GroundKickHitBox
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1330528962
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1330528961}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.000000023707601, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1276955359}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1330528963
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1330528961}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49609006e16d24c0eb1979af8e614441, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AttackHitBox
-  damage: 1
---- !u!65 &1330528964
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1330528961}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1.1097461, z: 1.0655168}
-  m_Center: {x: 3.5228784e-15, y: 0.5776934, z: 0.39391488}
 --- !u!1001 &1383553857
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1850,10 +1779,10 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 08055a44d04244aed9aa31817e2a3291, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1330528962}
-    - targetCorrespondingSourceObject: {fileID: 8721056732114653340, guid: 08055a44d04244aed9aa31817e2a3291, type: 3}
-      insertIndex: 0
       addedObject: {fileID: 156767706}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 08055a44d04244aed9aa31817e2a3291, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1497257701}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 08055a44d04244aed9aa31817e2a3291, type: 3}
       insertIndex: -1
@@ -2014,6 +1943,73 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1455190734}
   m_CullTransparentMesh: 1
+--- !u!1 &1497257700
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1497257701}
+  - component: {fileID: 1497257702}
+  - component: {fileID: 1497257703}
+  m_Layer: 0
+  m_Name: PunchHitBox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1497257701
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1497257700}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1276955359}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1497257702
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1497257700}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.8217898, y: 0.60000014, z: 0.749788}
+  m_Center: {x: 0.07997692, y: 1.1684152, z: 0.26078898}
+--- !u!114 &1497257703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1497257700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49609006e16d24c0eb1979af8e614441, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AttackHitBox
+  damage: 1
 --- !u!1001 &1508654206
 PrefabInstance:
   m_ObjectHideFlags: 0

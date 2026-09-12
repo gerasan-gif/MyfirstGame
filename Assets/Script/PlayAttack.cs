@@ -13,6 +13,7 @@ public class PlayerAttack : MonoBehaviour
     public PlayerAnimationController playerAnimation;
     public GameManager gameManager;
     public AttackHitBox kickHitBox;
+    public AttackHitBox punchHitBox;
 
     private Rigidbody rb;
     private bool isPunching = false;
@@ -67,15 +68,41 @@ public class PlayerAttack : MonoBehaviour
 
     IEnumerator PunchSequence()
     {
+        Debug.Log("パンチ開始");
+
         isPunching = true;
 
         if (playerAnimation != null)
             playerAnimation.PlayPunch();
 
-        yield return new WaitForSeconds(1.0f);
+        // パンチが前へ出るタイミングまで待つ
+        yield return new WaitForSeconds(0.2f);
+
+        Debug.Log("PunchHitBoxをONにする");
+
+        if (punchHitBox != null)
+        {
+            punchHitBox.EnableHitBox();
+        }
+        else{
+            Debug.Log("punchHitBox が NULL！");
+        }
+
+        // 攻撃判定を短時間だけ有効化
+        yield return new WaitForSeconds(0.2f);
+
+        if (punchHitBox != null)
+        {
+            punchHitBox.DisableHitBox();
+        }
+
+        // アニメーションの残り
+        yield return new WaitForSeconds(0.4f);
 
         if (playerAnimation != null)
+         {
             playerAnimation.PauseAnimation();
+        }
 
         yield return new WaitForSecondsRealtime(0.3f);
 
@@ -128,13 +155,20 @@ public class PlayerAttack : MonoBehaviour
 
         rb.linearVelocity = new Vector3(
             kickDirection.x * jumpKickSpeed,
-            rb.linearVelocity.y,
+            -1.5f,
             rb.linearVelocity.z
         );
+
+        // 10フレーム付近まで待つ
+        yield return new WaitForSeconds(0.30f);
 
         if (kickHitBox != null)
             kickHitBox.EnableHitBox();
 
+        // さらに20フレーム付近まで待つ
+        yield return new WaitForSeconds(0.40f);
+
+        // 着地待ち
         if (playerMovement != null)
         {
             while (!playerMovement.IsGrounded)

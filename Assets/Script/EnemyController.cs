@@ -13,7 +13,7 @@ public class EnemyController : MonoBehaviour
     public string knockDownState = "Sentinel_Knock_Down";
 
     [Header("Defeat")]
-    public float destroyDelay = 1.5f;
+    public float destroyDelay = 3.0f;
 
     private int currentHp;
     private bool isDefeated = false;

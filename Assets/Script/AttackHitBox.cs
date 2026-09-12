@@ -45,7 +45,7 @@ public class AttackHitBox : MonoBehaviour
             return;
         }
 
-        Debug.Log("敵にキック命中！");
+        Debug.Log("敵に命中！");
         enemy.TakeDamage(damage);
 
         // 1回の攻撃で同じ敵に連続ヒットしないようにする
