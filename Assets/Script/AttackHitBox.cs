@@ -39,14 +39,15 @@ public class AttackHitBox : MonoBehaviour
         }
 
         EnemyController enemy = other.GetComponentInParent<EnemyController>();
-        if (enemy == null) 
+
+        if (enemy != null) 
         {
+            Debug.Log("敵に命中！");
+            enemy.TakeDamage(damage);
+        }else{
             Debug.Log("EnemyController が見つからない");
             return;
         }
-
-        Debug.Log("敵に命中！");
-        enemy.TakeDamage(damage);
 
         // 1回の攻撃で同じ敵に連続ヒットしないようにする
         DisableHitBox();

@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     public bool IsGrounded => isGrounded;
 
     private GameManager gameManager;
+    private PlayerHealth playerHealth;
 
     void Start()
     {
@@ -30,6 +31,10 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        // ダウン時は抜ける
+        if (playerHealth != null && playerHealth.IsDead)
+            return;
+
         if (Keyboard.current == null)
         {
             return;
@@ -103,5 +108,10 @@ public class PlayerMovement : MonoBehaviour
             // 走るアニメーションを再開
             animator.speed = 1f;
         }
+    }
+
+    void Awake()
+    {
+        playerHealth = GetComponent<PlayerHealth>();
     }
 }

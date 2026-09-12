@@ -95,7 +95,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void GameOver()
+    public void GameOver()
     {
         if (isGameOver)
             return;

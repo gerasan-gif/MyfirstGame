@@ -71,6 +71,18 @@ public class PlayerAnimationController : MonoBehaviour
         animator.Play("Dance", 0, 0f);
     }
 
+    // プレイヤーダメージリアクション
+    public void PlayHitReaction()
+    {
+        animator.Play("Hit_Reaction", 0, 0f);
+    }
+
+    // プレイヤー敗北
+    public void PlayDead()
+    {
+        animator.Play("Dead", 0, 0f);
+    }
+
     // Animatorを一時停止
     public void PauseAnimation()
     {

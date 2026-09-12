@@ -23,9 +23,12 @@ public class PlayerAttack : MonoBehaviour
     public bool IsKicking => isKicking;
     public bool IsAttacking => isPunching || isKicking;
 
+    private PlayerHealth playerHealth;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        playerHealth = GetComponent<PlayerHealth>();
 
         if (playerMovement == null)
             playerMovement = GetComponent<PlayerMovement>();
@@ -48,6 +51,10 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
+        // ダウン時は抜ける
+        if (playerHealth != null && playerHealth.IsDead)
+            return;
+
         if (Keyboard.current == null) return;
 
         if (gameManager != null &&

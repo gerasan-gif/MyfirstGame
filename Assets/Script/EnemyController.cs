@@ -18,6 +18,8 @@ public class EnemyController : MonoBehaviour
     private int currentHp;
     private bool isDefeated = false;
 
+    public EnemyAttackHitBox enemyAttackHitBox;
+
     void Awake()
     {
         currentHp = maxHp;
