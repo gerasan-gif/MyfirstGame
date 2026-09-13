@@ -18,12 +18,32 @@ public class PlayerAttack : MonoBehaviour
     private Rigidbody rb;
     private bool isPunching = false;
     private bool isKicking = false;
+    private bool isJumpKicking = false;
 
     public bool IsPunching => isPunching;
     public bool IsKicking => isKicking;
     public bool IsAttacking => isPunching || isKicking;
+    public bool IsJumpKicking => isJumpKicking;
 
     private PlayerHealth playerHealth;
+
+    public void CancelAttack()
+    {
+        // PlayAttack内で動いている攻撃コルーチンを停止
+        StopAllCoroutines();
+
+        // 攻撃状態を解除
+        isPunching = false;
+        isKicking = false;
+        isJumpKicking = false;
+
+        // 攻撃判定も消す
+        if (punchHitBox != null)
+            punchHitBox.DisableHitBox();
+
+        if (kickHitBox != null)
+            kickHitBox.DisableHitBox();
+    }
 
     void Awake()
     {
@@ -79,6 +99,9 @@ public class PlayerAttack : MonoBehaviour
 
         isPunching = true;
 
+        // ★パンチは通常攻撃
+        punchHitBox.attackType = AttackHitBox.AttackType.Normal;
+
         if (playerAnimation != null)
             playerAnimation.PlayPunch();
 
@@ -126,6 +149,9 @@ public class PlayerAttack : MonoBehaviour
     {
         isKicking = true;
 
+        // ★地上キックは通常攻撃
+        kickHitBox.attackType = AttackHitBox.AttackType.Normal;
+
         if (playerAnimation != null)
             playerAnimation.PlayKick();
 
@@ -150,6 +176,10 @@ public class PlayerAttack : MonoBehaviour
     IEnumerator JumpKickSequence()
     {
         isKicking = true;
+        isJumpKicking = true;
+
+        // ★ジャンプキックは強攻撃
+        kickHitBox.attackType = AttackHitBox.AttackType.RiderKick;
 
         if (playerAnimation != null)
             playerAnimation.PlayJumpKick();
@@ -189,5 +219,6 @@ public class PlayerAttack : MonoBehaviour
             playerAnimation.PlayIdle();
 
         isKicking = false;
+        isJumpKicking = false;
     }
 }

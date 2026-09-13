@@ -9,10 +9,20 @@ public class AttackHitBox : MonoBehaviour
     private Collider hitBoxCollider;
     private bool canHit = false;
 
+    public enum AttackType
+    {
+        Normal,
+        RiderKick
+    }
+
+    public AttackType attackType = AttackType.Normal;
+    private PlayerAttack playerAttack;
+
     void Awake()
     {
         hitBoxCollider = GetComponent<Collider>();
         hitBoxCollider.enabled = false;
+        playerAttack = GetComponentInParent<PlayerAttack>();
     }
 
     public void EnableHitBox()
@@ -42,6 +52,18 @@ public class AttackHitBox : MonoBehaviour
 
         if (enemy != null) 
         {
+            // 戦闘員がパンチ攻撃中か確認
+            EnemyAttackController enemyAttack =
+                enemy.GetComponent<EnemyAttackController>();
+
+            if (enemyAttack != null && 
+                enemyAttack.IsPunchActive &&
+                attackType == AttackType.Normal)
+            {
+                Debug.Log("戦闘員のパンチが優先！風香の通常攻撃は無効");
+                return;
+            }
+
             Debug.Log("敵に命中！");
             enemy.TakeDamage(damage);
         }else{

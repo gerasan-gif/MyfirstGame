@@ -39,6 +39,7 @@ public class PlayerHealth : MonoBehaviour
         if (currentHp <= 0)
         {
             Die();
+            return;
         }
         else
         {
@@ -69,6 +70,13 @@ public class PlayerHealth : MonoBehaviour
     void Die()
     {
         isDead = true;
+
+        PlayerAttack attack = GetComponent<PlayerAttack>();
+
+        if (attack != null)
+        {
+            attack.CancelAttack();
+        }
 
         Debug.Log("PLAYER DOWN");
 

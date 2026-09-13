@@ -29,6 +29,17 @@ public class EnemyAttackHitBox : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+
+        PlayerAttack playerAttack =
+        other.GetComponentInParent<PlayerAttack>();
+
+        // ライダーキック中は戦闘員のパンチを無効化
+        if (playerAttack != null && playerAttack.IsJumpKicking)
+        {
+            Debug.Log("ジャンプキック中！戦闘員のパンチは無効");
+            return;
+        }
+
         // このパンチですでに命中していたら何もしない
         if (hasHit)
             return;
