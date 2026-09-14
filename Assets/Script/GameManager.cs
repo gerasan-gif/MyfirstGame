@@ -24,6 +24,11 @@ public class GameManager : MonoBehaviour
     public bool IsStageClear => isStageClear;
     public bool IsGameOver => isGameOver;
 
+    [Header("Audio")]
+    [SerializeField] private BGMPlayer bgmPlayer;
+    [SerializeField] private AudioClip victoryFanfare;
+    [SerializeField] private AudioClip gameoverBGM;
+
     void Update()
     {
         if (Keyboard.current == null)
@@ -93,6 +98,13 @@ public class GameManager : MonoBehaviour
         {
             playerAnimation.PlayDance();
         }
+
+        // 勝利ファンファーレ
+        if (bgmPlayer != null)
+        {
+            bgmPlayer.ChangeBGM(victoryFanfare, true);
+        }
+
     }
 
     public void GameOver()
@@ -112,6 +124,12 @@ public class GameManager : MonoBehaviour
         if (playerRb != null)
         {
             playerRb.linearVelocity = Vector3.zero;
+        }
+
+        // ゲームオーバーBGM
+        if (bgmPlayer != null)
+        {
+            bgmPlayer.ChangeBGM(gameoverBGM, false);
         }
 
         if (playerAnimation != null)
