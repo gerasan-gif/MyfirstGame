@@ -3,6 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class AttackHitBox : MonoBehaviour
 {
+    [SerializeField] private SoundEffectPlayer soundEffectPlayer;
     [Header("Damage")]
     public int damage = 1;
 
@@ -12,10 +13,18 @@ public class AttackHitBox : MonoBehaviour
     public enum AttackType
     {
         Normal,
-        RiderKick
+        Special
+    }
+
+    public enum AttackSoundType
+    {
+        Punch,
+        Kick,
+        Jumpkick
     }
 
     public AttackType attackType = AttackType.Normal;
+    public AttackSoundType attackSoundType = AttackSoundType.Punch;
     private PlayerAttack playerAttack;
 
     void Awake()
@@ -40,7 +49,7 @@ public class AttackHitBox : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
 
-        Debug.Log("KickHitBox 接触: " + other.gameObject.name);
+        Debug.Log("HitBox 接触: " + other.gameObject.name);
 
         if (!canHit) 
         {
@@ -66,6 +75,24 @@ public class AttackHitBox : MonoBehaviour
 
             Debug.Log("敵に命中！");
             enemy.TakeDamage(damage);
+
+            switch (attackSoundType)
+            {
+                case AttackSoundType.Punch:
+                    soundEffectPlayer.PlayPunchHit();
+                    playerAttack.AddPunchGauge();
+                    break;
+
+                case AttackSoundType.Kick:
+                    soundEffectPlayer.PlayKickHit();
+                    playerAttack.AddKickGauge();
+                    break;
+
+                case AttackSoundType.Jumpkick:
+                    soundEffectPlayer.PlayJumpkickHit();
+                    break;
+            }
+
         }else{
             Debug.Log("EnemyController が見つからない");
             return;

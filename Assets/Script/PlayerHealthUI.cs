@@ -1,16 +1,19 @@
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PlayerHealthUI : MonoBehaviour
 {
-    public PlayerHealth playerHealth;
+    [SerializeField] private PlayerHealth playerHealth;
 
-    public Image heart1;
-    public Image heart2;
-    public Image heart3;
+    [SerializeField] private TMP_Text heart1;
+    [SerializeField] private TMP_Text heart2;
+    [SerializeField] private TMP_Text heart3;
 
     void Update()
     {
+        if (playerHealth == null)
+            return;
+
         int hp = playerHealth.CurrentHp;
 
         heart1.enabled = hp >= 1;

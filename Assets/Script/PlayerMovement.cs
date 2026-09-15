@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
 
     private GameManager gameManager;
     private PlayerHealth playerHealth;
+    [SerializeField] private SoundEffectPlayer soundEffectPlayer;
 
     void Start()
     {
@@ -96,6 +97,9 @@ public class PlayerMovement : MonoBehaviour
 
             // 走るアニメーションを停止
             animator.speed = 0f;
+
+            // ジャンプ効果音
+            soundEffectPlayer.PlayJump();
         }
     }
 

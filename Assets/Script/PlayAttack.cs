@@ -14,6 +14,7 @@ public class PlayerAttack : MonoBehaviour
     public GameManager gameManager;
     public AttackHitBox kickHitBox;
     public AttackHitBox punchHitBox;
+    public AttackHitBox jumpkickHitBox;
 
     private Rigidbody rb;
     private bool isPunching = false;
@@ -26,6 +27,12 @@ public class PlayerAttack : MonoBehaviour
     public bool IsJumpKicking => isJumpKicking;
 
     private PlayerHealth playerHealth;
+
+    [Header("Special Gauge")]
+    [SerializeField] private PlayerSpecialGauge specialGauge;
+
+    [SerializeField] private int punchGaugeAmount = 10;
+    [SerializeField] private int kickGaugeAmount = 15;
 
     public void CancelAttack()
     {
@@ -43,6 +50,9 @@ public class PlayerAttack : MonoBehaviour
 
         if (kickHitBox != null)
             kickHitBox.DisableHitBox();
+
+        if (jumpkickHitBox != null)
+            jumpkickHitBox.DisableHitBox();
     }
 
     void Awake()
@@ -58,6 +68,14 @@ public class PlayerAttack : MonoBehaviour
 
         if (kickHitBox == null)
             kickHitBox = GetComponentInChildren<AttackHitBox>(true);
+
+        if (jumpkickHitBox == null)
+            jumpkickHitBox = GetComponentInChildren<AttackHitBox>(true);
+
+        if (specialGauge == null)
+        {
+            specialGauge = GetComponent<PlayerSpecialGauge>();
+        }
     }
 
     void Start()
@@ -67,6 +85,9 @@ public class PlayerAttack : MonoBehaviour
 
         if (kickHitBox != null)
             kickHitBox.DisableHitBox();
+
+        if (jumpkickHitBox != null)
+            jumpkickHitBox.DisableHitBox();
     }
 
     void Update()
@@ -89,7 +110,27 @@ public class PlayerAttack : MonoBehaviour
             if (playerMovement != null && playerMovement.IsGrounded)
                 StartCoroutine(KickSequence());
             else
-                StartCoroutine(JumpKickSequence());
+                if (!specialGauge.UseGauge()){
+                    return;
+                }else{
+                    StartCoroutine(JumpKickSequence());
+                }
+        }
+    }
+
+    public void AddPunchGauge()
+    {
+        if (specialGauge != null)
+        {
+            specialGauge.AddGauge(punchGaugeAmount);
+        }
+    }
+
+    public void AddKickGauge()
+    {
+        if (specialGauge != null)
+        {
+            specialGauge.AddGauge(kickGaugeAmount);
         }
     }
 
@@ -179,7 +220,7 @@ public class PlayerAttack : MonoBehaviour
         isJumpKicking = true;
 
         // ★ジャンプキックは強攻撃
-        kickHitBox.attackType = AttackHitBox.AttackType.RiderKick;
+        kickHitBox.attackType = AttackHitBox.AttackType.Special;
 
         if (playerAnimation != null)
             playerAnimation.PlayJumpKick();
@@ -199,8 +240,8 @@ public class PlayerAttack : MonoBehaviour
         // 10フレーム付近まで待つ
         yield return new WaitForSeconds(0.30f);
 
-        if (kickHitBox != null)
-            kickHitBox.EnableHitBox();
+        if (jumpkickHitBox != null)
+            jumpkickHitBox.EnableHitBox();
 
         // さらに20フレーム付近まで待つ
         yield return new WaitForSeconds(0.40f);
@@ -212,8 +253,8 @@ public class PlayerAttack : MonoBehaviour
                 yield return null;
         }
 
-        if (kickHitBox != null)
-            kickHitBox.DisableHitBox();
+        if (jumpkickHitBox != null)
+            jumpkickHitBox.DisableHitBox();
 
         if (playerAnimation != null)
             playerAnimation.PlayIdle();

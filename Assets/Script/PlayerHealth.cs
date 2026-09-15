@@ -12,6 +12,7 @@ public class PlayerHealth : MonoBehaviour
 
     private PlayerAnimationController playerAnimation;
     [SerializeField] private Transform deathCameraTarget;
+    [SerializeField] private SoundEffectPlayer soundEffectPlayer;
 
     public int CurrentHp => currentHp;
     public bool IsDead => isDead;
@@ -44,6 +45,7 @@ public class PlayerHealth : MonoBehaviour
         else
         {
             StartCoroutine(HitReactionSequence());
+            soundEffectPlayer.PlayDamage();
         }
     }
 
@@ -82,6 +84,9 @@ public class PlayerHealth : MonoBehaviour
 
         if (playerAnimation != null)
             playerAnimation.PlayDead();
+
+        // ノックダウンのサウンド再生
+        soundEffectPlayer.PlayKnockDown();
 
         CameraFollow cameraController =
             Camera.main.GetComponent<CameraFollow>();
