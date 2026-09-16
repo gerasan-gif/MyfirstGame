@@ -61,6 +61,13 @@ public class AttackHitBox : MonoBehaviour
 
         if (enemy != null) 
         {
+            // すでに倒れている敵には攻撃判定を行わない
+            if (enemy.IsDead)
+            {
+                Debug.Log("すでに倒れている敵");
+                return;
+            }
+
             // 戦闘員がパンチ攻撃中か確認
             EnemyAttackController enemyAttack =
                 enemy.GetComponent<EnemyAttackController>();

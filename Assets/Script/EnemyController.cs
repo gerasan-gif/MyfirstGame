@@ -17,6 +17,9 @@ public class EnemyController : MonoBehaviour
 
     private int currentHp;
     private bool isDefeated = false;
+    private bool isDead = false;
+
+    public bool IsDead => isDead;
 
     public EnemyAttackHitBox enemyAttackHitBox;
 
@@ -38,6 +41,7 @@ public class EnemyController : MonoBehaviour
 
         if (currentHp <= 0)
         {
+            isDead = true;
             StartCoroutine(DefeatSequence());
         }
         else

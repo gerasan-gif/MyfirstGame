@@ -1,13 +1,14 @@
-using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerHealthUI : MonoBehaviour
 {
     [SerializeField] private PlayerHealth playerHealth;
 
-    [SerializeField] private TMP_Text heart1;
-    [SerializeField] private TMP_Text heart2;
-    [SerializeField] private TMP_Text heart3;
+    [Header("Heart Images")]
+    [SerializeField] private Image heart1;
+    [SerializeField] private Image heart2;
+    [SerializeField] private Image heart3;
 
     void Update()
     {

@@ -6,6 +6,9 @@ public class SoundEffectPlayer : MonoBehaviour
     [SerializeField] private AudioClip punchHit;
     [SerializeField] private AudioClip kickHit;
     [SerializeField] private AudioClip jumpkickHit;
+    [SerializeField] private AudioClip punchMiss;
+    [SerializeField] private AudioClip kickMiss;
+    [SerializeField] private AudioClip attackMiss;
 
     [Header("Player / Enemy")]
     [SerializeField] private AudioClip damage;
@@ -56,6 +59,21 @@ public class SoundEffectPlayer : MonoBehaviour
     public void PlayJumpkickHit()
     {
         PlaySE(jumpkickHit);
+    }
+
+    public void PlayAttackMiss()
+    {
+        PlaySE(attackMiss);
+    }
+
+    public void PlayPunchkMiss()
+    {
+        PlaySE(punchMiss);
+    }
+
+    public void PlayKickMiss()
+    {
+        PlaySE(kickMiss);
     }
 
     public void PlayDamage()

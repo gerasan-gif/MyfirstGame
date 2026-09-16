@@ -16,6 +16,8 @@ public class PlayerAttack : MonoBehaviour
     public AttackHitBox punchHitBox;
     public AttackHitBox jumpkickHitBox;
 
+    [SerializeField] private SoundEffectPlayer soundEffectPlayer;
+
     private Rigidbody rb;
     private bool isPunching = false;
     private bool isKicking = false;
@@ -102,7 +104,7 @@ public class PlayerAttack : MonoBehaviour
             (gameManager.IsStageClear || gameManager.IsGameOver))
             return;
 
-        if (Keyboard.current.pKey.wasPressedThisFrame && !isPunching)
+        if (Keyboard.current.pKey.wasPressedThisFrame && !isPunching && playerMovement.IsGrounded)
             StartCoroutine(PunchSequence());
 
         if (Keyboard.current.kKey.wasPressedThisFrame && !isKicking)
@@ -148,6 +150,9 @@ public class PlayerAttack : MonoBehaviour
 
         // パンチが前へ出るタイミングまで待つ
         yield return new WaitForSeconds(0.2f);
+
+        // 空振り音を鳴らす
+        soundEffectPlayer.PlayPunchkMiss();
 
         Debug.Log("PunchHitBoxをONにする");
 
@@ -197,6 +202,9 @@ public class PlayerAttack : MonoBehaviour
             playerAnimation.PlayKick();
 
         yield return new WaitForSeconds(0.60f);
+
+        // 空振り音を鳴らす
+        soundEffectPlayer.PlayKickMiss();
 
         if (kickHitBox != null)
             kickHitBox.EnableHitBox();
