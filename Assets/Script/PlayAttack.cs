@@ -36,6 +36,13 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private int punchGaugeAmount = 10;
     [SerializeField] private int kickGaugeAmount = 15;
 
+    [Header("Special Attack")]
+    [SerializeField] private GameObject heartProjectilePrefab;
+    [SerializeField] private Transform heartSpawnPoint;
+    [SerializeField] private float specialCooldown = 0.5f;
+
+    private bool canSpecialAttack = true;
+
     public void CancelAttack()
     {
         // PlayAttack内で動いている攻撃コルーチンを停止
@@ -107,16 +114,19 @@ public class PlayerAttack : MonoBehaviour
         if (Keyboard.current.pKey.wasPressedThisFrame && !isPunching && playerMovement.IsGrounded)
             StartCoroutine(PunchSequence());
 
-        if (Keyboard.current.kKey.wasPressedThisFrame && !isKicking)
+        if (Keyboard.current.kKey.wasPressedThisFrame && !isKicking && playerMovement.IsGrounded)
+            StartCoroutine(KickSequence());
+
+        if (Keyboard.current.hKey.wasPressedThisFrame && specialGauge.UseGauge())
         {
-            if (playerMovement != null && playerMovement.IsGrounded)
-                StartCoroutine(KickSequence());
+            if (playerMovement.IsGrounded)
+            {
+                FireHeartAttack();
+            }
             else
-                if (!specialGauge.UseGauge()){
-                    return;
-                }else{
-                    StartCoroutine(JumpKickSequence());
-                }
+            {
+                StartCoroutine(JumpKickSequence());
+            }
         }
     }
 
@@ -134,6 +144,22 @@ public class PlayerAttack : MonoBehaviour
         {
             specialGauge.AddGauge(kickGaugeAmount);
         }
+    }
+
+    public void FireHeartAttack()
+    {
+        if (!canSpecialAttack) return;
+        if (heartProjectilePrefab == null || heartSpawnPoint == null) return;
+
+        canSpecialAttack = false;
+
+        // パンチモーション
+        if (playerAnimation != null)
+        {
+            playerAnimation.PlayPunch();
+        }
+
+        StartCoroutine(FireHeartRoutine());
     }
 
     IEnumerator PunchSequence()
@@ -269,5 +295,40 @@ public class PlayerAttack : MonoBehaviour
 
         isKicking = false;
         isJumpKicking = false;
+    }
+
+    private IEnumerator FireHeartRoutine()
+    {
+        // パンチしてから少し遅れて飛ばす
+        yield return new WaitForSeconds(0.2f);
+
+        GameObject heart = Instantiate(
+            heartProjectilePrefab,
+            heartSpawnPoint.position,
+            heartProjectilePrefab.transform.rotation
+        );
+
+        HeartProjectile projectile = heart.GetComponent<HeartProjectile>();
+        if (projectile != null)
+        {
+            Vector3 direction = playerMovement.isFacingRight
+            ? Vector3.left
+            : Vector3.right;
+
+            projectile.SetDirection(direction);
+        }
+
+        // パンチモーションを少し見せる
+        yield return new WaitForSeconds(0.3f);
+
+        // 待機モーションへ戻す
+        if (playerAnimation != null)
+        {
+            playerAnimation.PlayIdle();
+        }
+
+        // 連射防止
+        yield return new WaitForSeconds(specialCooldown);
+        canSpecialAttack = true;
     }
 }

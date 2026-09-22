@@ -20,6 +20,8 @@ public class PlayerMovement : MonoBehaviour
     private PlayerHealth playerHealth;
     [SerializeField] private SoundEffectPlayer soundEffectPlayer;
 
+    public bool isFacingRight = true;
+
     void Start()
     {
         startX = transform.position.x;
@@ -61,6 +63,7 @@ public class PlayerMovement : MonoBehaviour
         if (Keyboard.current.aKey.isPressed)
         {
             move = 1f;
+            isFacingRight = false;
 
             // 反対向き
             transform.rotation = Quaternion.Euler(0f, 90f, 0f);
@@ -69,6 +72,7 @@ public class PlayerMovement : MonoBehaviour
         if (Keyboard.current.dKey.isPressed)
         {
             move = -1f;
+            isFacingRight = true;
 
             // 前向き
             transform.rotation = Quaternion.Euler(0f, -90f, 0f);

@@ -12,11 +12,9 @@ public class GameManager : MonoBehaviour
 
     [Header("Stage Clear")]
     public float stageClearX = -100f;
-    public GameObject stageClearUI;
 
     [Header("Game Over")]
     public float gameOverY = -50f;
-    public GameObject gameOverUI;
 
     private bool isStageClear = false;
     private bool isGameOver = false;
@@ -28,6 +26,15 @@ public class GameManager : MonoBehaviour
     [SerializeField] private BGMPlayer bgmPlayer;
     [SerializeField] private AudioClip victoryFanfare;
     [SerializeField] private AudioClip gameoverBGM;
+
+    public GameObject stageClearImage;
+    public GameObject gameOverImage;
+
+    void Start()
+    {
+        if (stageClearImage != null) stageClearImage.SetActive(false);
+        if (gameOverImage != null) gameOverImage.SetActive(false);
+    }
 
     void Update()
     {
@@ -77,9 +84,9 @@ public class GameManager : MonoBehaviour
             playerAnimation.PlayIdle();
         }
 
-        if (stageClearUI != null)
+        if (stageClearImage != null)
         {
-            stageClearUI.SetActive(true);
+            stageClearImage.SetActive(true);
         }
 
         StartCoroutine(ClearDanceSequence());
@@ -116,9 +123,9 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("GAME OVER");
 
-        if (gameOverUI != null)
+        if (gameOverImage != null)
         {
-            gameOverUI.SetActive(true);
+            gameOverImage.SetActive(true);
         }
 
         if (playerRb != null)
