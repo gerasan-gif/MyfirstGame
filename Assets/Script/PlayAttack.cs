@@ -308,6 +308,9 @@ public class PlayerAttack : MonoBehaviour
             heartProjectilePrefab.transform.rotation
         );
 
+        // SEを鳴らす
+        soundEffectPlayer.PlayHeartAttackShot();
+
         HeartProjectile projectile = heart.GetComponent<HeartProjectile>();
         if (projectile != null)
         {

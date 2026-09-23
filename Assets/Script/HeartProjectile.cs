@@ -6,16 +6,33 @@ public class HeartProjectile : MonoBehaviour
     public int damage = 2;
     public float lifeTime = 2f;
 
+    [Header("Hit Effect")]
+    [SerializeField] private GameObject hitEffectPrefab;
+
+    [Header("Sound")]
+    [SerializeField] private AudioClip hitSE;
+
+    private Rigidbody rb;
+
     private Vector3 moveDirection = Vector3.right;
 
     void Start()
     {
+        rb = GetComponent<Rigidbody>();
         Destroy(gameObject, lifeTime);
     }
 
     void Update()
     {
         transform.position += moveDirection * speed * Time.deltaTime;
+    }
+
+    public void Launch(Vector3 direction)
+    {
+        if (rb != null)
+        {
+            rb.linearVelocity = direction.normalized * speed;
+        }
     }
 
     public void SetDirection(Vector3 dir)
@@ -30,6 +47,18 @@ public class HeartProjectile : MonoBehaviour
         if (enemy != null)
         {
             enemy.TakeDamage(damage);
+            SpawnHitEffect();
+        
+            // 着弾SE
+            if (hitSE != null)
+            {
+                AudioSource.PlayClipAtPoint(
+                hitSE,
+                transform.position,
+                1f
+                );
+            }
+            
             Destroy(gameObject);
             return;
         }
@@ -37,7 +66,22 @@ public class HeartProjectile : MonoBehaviour
         // 地面や障害物に当たったら消すなら
         if (other.CompareTag("Ground") || other.CompareTag("Obstacle"))
         {
+            SpawnHitEffect();
             Destroy(gameObject);
+        }
+    }
+
+    void SpawnHitEffect()
+    {
+        if (hitEffectPrefab != null)
+        {
+            GameObject effect = Instantiate(
+                hitEffectPrefab,
+                transform.position,
+                Quaternion.identity
+            );
+
+            Destroy(effect, 1f);
         }
     }
 }
