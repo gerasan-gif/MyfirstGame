@@ -16,6 +16,8 @@ public class HeartProjectile : MonoBehaviour
 
     private Vector3 moveDirection = Vector3.right;
 
+    [SerializeField] private AttackHitBox.AttackType attackType = AttackHitBox.AttackType.Special;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -46,7 +48,7 @@ public class HeartProjectile : MonoBehaviour
 
         if (enemy != null)
         {
-            enemy.TakeDamage(damage);
+            enemy.TakeDamage(damage, attackType);
             SpawnHitEffect();
         
             // 着弾SE

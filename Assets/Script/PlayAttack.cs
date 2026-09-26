@@ -41,6 +41,8 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private Transform heartSpawnPoint;
     [SerializeField] private float specialCooldown = 0.5f;
 
+    [SerializeField] private ParticleSystem heartMuzzleFlash;
+
     private bool canSpecialAttack = true;
 
     public void CancelAttack()
@@ -301,6 +303,11 @@ public class PlayerAttack : MonoBehaviour
     {
         // パンチしてから少し遅れて飛ばす
         yield return new WaitForSeconds(0.2f);
+
+        if (heartMuzzleFlash != null)
+        {
+            heartMuzzleFlash.Play();
+        }
 
         GameObject heart = Instantiate(
             heartProjectilePrefab,

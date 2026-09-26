@@ -107,6 +107,7 @@ MonoBehaviour:
   lifeTime: 2
   hitEffectPrefab: {fileID: 3357127711378724780, guid: f33b62e3fcb5b4bd9965052a98b87aad, type: 3}
   hitSE: {fileID: 8300000, guid: 8eacb9988085e4893a7838d4dfdae55b, type: 3}
+  attackType: 1
 --- !u!54 &6285249289318248123
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -181,7 +182,7 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 09cb3d747f5524b6092d07b04b011f53, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

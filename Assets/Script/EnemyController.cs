@@ -31,8 +31,10 @@ public class EnemyController : MonoBehaviour
             animator = GetComponent<Animator>();
     }
 
-    public void TakeDamage(int damage)
-    {
+    public void TakeDamage(
+        int damage,
+        AttackHitBox.AttackType attackType = AttackHitBox.AttackType.Normal)
+    {   
         if (isDefeated) return;
 
         currentHp -= damage;
