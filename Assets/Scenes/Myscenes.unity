@@ -187,6 +187,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pollybacket1-6
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9cd436387dff345ba847f11160200d11, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1297,6 +1301,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pollybacket1-1
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9cd436387dff345ba847f11160200d11, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1686,6 +1694,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pollybacket2-7
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9cd436387dff345ba847f11160200d11, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1948,6 +1960,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pollybacket2-5
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9cd436387dff345ba847f11160200d11, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2098,6 +2114,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9cd436387dff345ba847f11160200d11, type: 3}
       propertyPath: m_Name
       value: Pollybacket2-1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9cd436387dff345ba847f11160200d11, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2385,6 +2405,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9cd436387dff345ba847f11160200d11, type: 3}
       propertyPath: m_Name
       value: Pollybacket2-8
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9cd436387dff345ba847f11160200d11, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3376,6 +3400,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pollybacket1-7
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9cd436387dff345ba847f11160200d11, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3797,6 +3825,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9cd436387dff345ba847f11160200d11, type: 3}
       propertyPath: m_Name
       value: Pollybacket2-3
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9cd436387dff345ba847f11160200d11, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9395,6 +9427,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pollybacket1-5
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9cd436387dff345ba847f11160200d11, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10142,6 +10178,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pollybacket2-6
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9cd436387dff345ba847f11160200d11, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10218,6 +10258,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pollybacket2-4
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9cd436387dff345ba847f11160200d11, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10293,6 +10337,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9cd436387dff345ba847f11160200d11, type: 3}
       propertyPath: m_Name
       value: Pollybacket1-4
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9cd436387dff345ba847f11160200d11, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10699,6 +10747,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9cd436387dff345ba847f11160200d11, type: 3}
       propertyPath: m_Name
       value: Pollybacket1-3
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9cd436387dff345ba847f11160200d11, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11713,6 +11765,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pollybacket1-2
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9cd436387dff345ba847f11160200d11, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12280,6 +12336,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9cd436387dff345ba847f11160200d11, type: 3}
       propertyPath: m_Name
       value: Pollybacket2-2
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9cd436387dff345ba847f11160200d11, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

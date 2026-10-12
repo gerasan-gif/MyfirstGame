@@ -4,6 +4,7 @@ public class EnemyAttackHitBox : MonoBehaviour
 {
     private Collider hitBoxCollider;
     private bool hasHit = false;
+    private EnemyController enemyController;
 
     void Awake()
     {
@@ -11,6 +12,11 @@ public class EnemyAttackHitBox : MonoBehaviour
 
         if (hitBoxCollider != null)
             hitBoxCollider.enabled = false;
+    }
+
+    void Start()
+    {
+        enemyController = GetComponentInParent<EnemyController>();
     }
 
     public void EnablePunchHitBox()
@@ -43,6 +49,12 @@ public class EnemyAttackHitBox : MonoBehaviour
         // このパンチですでに命中していたら何もしない
         if (hasHit)
             return;
+
+        // 敵が死亡済みなら攻撃判定無効(主にハートアタック後)
+        if (enemyController != null && enemyController.IsDead)
+        {
+            return;
+        }
 
         PlayerHealth playerHealth =
             other.GetComponentInParent<PlayerHealth>();
